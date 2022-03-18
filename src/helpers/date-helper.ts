@@ -180,6 +180,20 @@ export const getLocalDayOfWeek = (
   return bottomValue;
 };
 
+export const getLocalDate = (
+  date: Date,
+  locale: string
+) => {
+  let bottomValue = getCachedDateTimeFormat(locale, {
+    day: "numeric",
+  }).format(date);
+  bottomValue = bottomValue.replace(
+    bottomValue[0],
+    bottomValue[0].toLocaleUpperCase()
+  );
+  return bottomValue;
+};
+
 /**
  * Returns monday of current week
  * @param date date for modify

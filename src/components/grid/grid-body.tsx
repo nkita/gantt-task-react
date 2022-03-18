@@ -60,6 +60,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   const now = new Date();
   let tickX = 0;
   const ticks: ReactChild[] = [];
+  const holiday: ReactChild[] = [];
   let today: ReactChild = <rect />;
   for (let i = 0; i < dates.length; i++) {
     const date = dates[i];
@@ -97,6 +98,19 @@ export const GridBody: React.FC<GridBodyProps> = ({
         />
       );
     }
+
+    // todo holiday
+    holiday.push(
+      <rect
+        x={tickX}
+        y={0}
+        width={columnWidth}
+        height={y}
+        fill={todayColor}
+        stroke="#000"
+        strokeWidth="1"
+      />
+    );
     // rtl for today
     if (
       rtl &&
@@ -122,6 +136,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
       <g className="rowLines">{rowLines}</g>
       <g className="ticks">{ticks}</g>
       <g className="today">{today}</g>
+      <g className="holiday">{holiday}</g>
     </g>
   );
 };

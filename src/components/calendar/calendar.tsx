@@ -7,6 +7,7 @@ import {
   getLocalDayOfWeek,
   getLocaleMonth,
   getWeekNumberISO8601,
+  getLocalDate,
 } from "../../helpers/date-helper";
 import { DateSetup } from "../../types/date-setup";
 import styles from "./calendar.module.css";
@@ -87,7 +88,7 @@ export const Calendar: React.FC<CalendarProps> = ({
       let topValue = "";
       if (i === 0 || date.getMonth() !== dates[i - 1].getMonth()) {
         // top
-        topValue = `${getLocaleMonth(date, locale)}, ${date.getFullYear()}`;
+        topValue = `${date.getFullYear()} ${getLocaleMonth(date, locale)}`;
       }
       // bottom
       const bottomValue = `W${getWeekNumberISO8601(date)}`;
@@ -132,9 +133,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     const dates = dateSetup.dates;
     for (let i = 0; i < dates.length; i++) {
       const date = dates[i];
-      const bottomValue = `${getLocalDayOfWeek(date, locale, "short")}, ${date
-        .getDate()
-        .toString()}`;
+      const bottomValue = `${date.getDate().toString()} ${getLocalDayOfWeek(date, locale, "short")}`;
 
       bottomValues.push(
         <text
@@ -197,11 +196,11 @@ export const Calendar: React.FC<CalendarProps> = ({
         </text>
       );
       if (i === 0 || date.getDate() !== dates[i - 1].getDate()) {
-        const topValue = `${getLocalDayOfWeek(
+        const topValue = `${getLocaleMonth(date, locale)} ${date.getDate()} (${getLocalDayOfWeek(
           date,
           locale,
           "short"
-        )}, ${date.getDate()} ${getLocaleMonth(date, locale)}`;
+        )})`;
         topValues.push(
           <TopPartOfCalendar
             key={topValue + date.getFullYear()}
@@ -242,11 +241,11 @@ export const Calendar: React.FC<CalendarProps> = ({
         </text>
       );
       if (i === 0 || date.getDate() !== dates[i - 1].getDate()) {
-        const topValue = `${getLocalDayOfWeek(
+        const topValue = `${getLocaleMonth(date, locale)} ${getLocalDate(date,locale)} (${getLocalDayOfWeek(
           date,
           locale,
-          "long"
-        )}, ${date.getDate()} ${getLocaleMonth(date, locale)}`;
+          "short"
+        )})`;
         const topPosition = (date.getHours() - 24) / 2;
         topValues.push(
           <TopPartOfCalendar
