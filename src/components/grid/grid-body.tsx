@@ -10,6 +10,7 @@ export type GridBodyProps = {
   rowHeight: number;
   columnWidth: number;
   todayColor: string;
+  holidayColor: string;
   rtl: boolean;
 };
 export const GridBody: React.FC<GridBodyProps> = ({
@@ -19,6 +20,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   svgWidth,
   columnWidth,
   todayColor,
+  holidayColor,
   rtl,
 }) => {
   let y = 0;
@@ -74,6 +76,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
         className={styles.gridTick}
       />
     );
+
     if (
       (i + 1 !== dates.length &&
         date.getTime() < now.getTime() &&
@@ -97,20 +100,19 @@ export const GridBody: React.FC<GridBodyProps> = ({
           fill={todayColor}
         />
       );
+    } else if (date.getDay() === 0 || date.getDay() === 6) {
+      // holiday
+      holiday.push(
+        <rect
+          x={tickX}
+          y={0}
+          width={columnWidth}
+          height={y}
+          fill={holidayColor}
+        />
+      );
     }
 
-    // todo holiday
-    holiday.push(
-      <rect
-        x={tickX}
-        y={0}
-        width={columnWidth}
-        height={y}
-        fill={todayColor}
-        stroke="#000"
-        strokeWidth="1"
-      />
-    );
     // rtl for today
     if (
       rtl &&
