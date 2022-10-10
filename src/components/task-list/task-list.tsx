@@ -81,7 +81,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   };
 
   return (
-    <div ref={taskListRef}>
+    <div ref={taskListRef} className="taskListLeftArea">
       <TaskListHeader {...headerProps} />
       <div
         ref={horizontalContainerRef}

@@ -176,9 +176,12 @@ export const Calendar: React.FC<CalendarProps> = ({
     const dates = dateSetup.dates;
     for (let i = 0; i < dates.length; i++) {
       const date = dates[i];
-      const bottomValue = `${getLocalDayOfWeek(date, locale, "short")}, ${date
-        .getDate()
-        .toString()}`;
+      // modify nkita
+      // const bottomValue = `${getLocalDayOfWeek(date, locale, "short")}, ${date
+      //   .getDate()
+      //   .toString()}`;
+      const bottomValue = `${date.getDate().toString()}`;
+
 
       bottomValues.push(
         <text
@@ -201,13 +204,13 @@ export const Calendar: React.FC<CalendarProps> = ({
             key={topValue + date.getFullYear()}
             value={topValue}
             x1Line={columnWidth * (i + 1)}
-            y1Line={0}
+            y1Line={1}
             y2Line={topDefaultHeight}
             xText={
               columnWidth * (i + 1) -
               getDaysInMonth(date.getMonth(), date.getFullYear()) *
-                columnWidth *
-                0.5
+              columnWidth *
+              0.5
             }
             yText={topDefaultHeight * 0.9}
           />
@@ -317,9 +320,9 @@ export const Calendar: React.FC<CalendarProps> = ({
       [topValues, bottomValues] = getCalendarValuesForYear();
       break;
     case ViewMode.Month:
-        [topValues, bottomValues] = getCalendarValuesForMonth();
-        break;
-      case ViewMode.Week:
+      [topValues, bottomValues] = getCalendarValuesForMonth();
+      break;
+    case ViewMode.Week:
       [topValues, bottomValues] = getCalendarValuesForWeek();
       break;
     case ViewMode.Day:
