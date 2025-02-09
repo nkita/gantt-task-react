@@ -38,12 +38,9 @@ export const TaskGantt: React.FC<TaskGanttProps> = ({
   }, [scrollX]);
 
   return (
-    <div
-      className={styles.ganttVerticalContainer}
-      ref={verticalGanttContainerRef}
-      dir="ltr"
-    >
+    <div style={{ position: "relative" }}>
       <svg
+        style={{ position: "sticky", top: 0, zIndex: 2 }}
         xmlns="http://www.w3.org/2000/svg"
         width={gridProps.svgWidth}
         height={calendarProps.headerHeight}
