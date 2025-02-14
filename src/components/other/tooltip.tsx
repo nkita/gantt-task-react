@@ -123,11 +123,9 @@ export const StandardTooltipContent: React.FC<{
   };
   return (
     <div className={styles.tooltipDefaultContainer} style={style}>
-      <b style={{ fontSize: fontSize + 6 }}>{`${
-        task.name
-      }: ${task.start.getFullYear()}年${
+      <b style={{ fontSize: fontSize + 6 }}>{`${task.start.getFullYear()}年${
         task.start.getMonth() + 1
-      }月${task.start.getDate()}日 ～ ${task.end.getFullYear()}年${
+      }月${task.start.getDate()}日 - ${task.end.getFullYear()}年${
         task.end.getMonth() + 1
       }月${task.end.getDate()}日`}</b>
       {task.end.getTime() - task.start.getTime() !== 0 && (
