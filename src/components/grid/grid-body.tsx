@@ -10,6 +10,8 @@ export type GridBodyProps = {
   rowHeight: number;
   columnWidth: number;
   todayColor: string;
+  holidayColor: string;
+  nationalHolidays: string[];
   rtl: boolean;
 };
 export const GridBody: React.FC<GridBodyProps> = ({
@@ -19,6 +21,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
   svgWidth,
   columnWidth,
   todayColor,
+  holidayColor,
+  nationalHolidays,
   rtl,
 }) => {
   let y = 0;
@@ -60,6 +64,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
   const now = new Date();
   let tickX = 0;
   const ticks: ReactChild[] = [];
+  const holidays: ReactChild[] = [];
+
   let today: ReactChild = <rect />;
   for (let i = 0; i < dates.length; i++) {
     const date = dates[i];
@@ -73,6 +79,27 @@ export const GridBody: React.FC<GridBodyProps> = ({
         className={styles.gridTick}
       />
     );
+    if (dates[i + 1]) {
+      const formattedDate = `${dates[i + 1].getFullYear()}-${(dates[i + 1].getMonth() + 1).toString().padStart(2, '0')}-${dates[i + 1].getDate().toString().padStart(2, '0')}`;
+      
+      if (
+        holidayColor !== "transparent" &&
+        ([0, 6].includes(dates[i + 1].getDay()) ||
+          nationalHolidays.includes(formattedDate))
+      ) {
+        holidays.push(
+          <rect
+            key={"HolidayColumn" + i}
+            x={tickX + columnWidth}
+            y={0}
+            width={columnWidth}
+            height={y}
+            fill={holidayColor}
+          />
+        );
+      }
+    }
+
     if (
       (i + 1 !== dates.length &&
         date.getTime() < now.getTime() &&
@@ -121,6 +148,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
       <g className="rows">{gridRows}</g>
       <g className="rowLines">{rowLines}</g>
       <g className="ticks">{ticks}</g>
+      <g className="weekends">{holidays}</g>
       <g className="today">{today}</g>
     </g>
   );

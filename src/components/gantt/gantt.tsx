@@ -53,7 +53,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   fontFamily = "Arial, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue",
   fontSize = "14px",
   arrowIndent = 20,
-  todayColor = "rgba(252, 248, 227, 0.5)",
+  todayColor = "rgba(252, 248, 227, 1)",
+  holidayColor = "transparent",
+  nationalHolidays = [],
   viewDate,
   viewTask,
   TooltipContent = StandardTooltipContent,
@@ -402,6 +404,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     rowHeight,
     dates: dateSetup.dates,
     todayColor,
+    holidayColor,
+    nationalHolidays,
     rtl,
   };
   const calendarProps: CalendarProps = {
