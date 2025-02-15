@@ -151,8 +151,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
   return (
     <g className="gridBody">
       <g className="ticks">{ticks}</g>
-      <g className="holidays">{holidays}</g>
       <g className="rows">{gridRows}</g>
+      <g className="holidays">{holidays}</g>
       <g className="rowLines">{rowLines}</g>
       <g className="today">{today}</g>
     </g>

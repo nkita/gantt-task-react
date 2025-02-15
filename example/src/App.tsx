@@ -87,9 +87,9 @@ const App = () => {
         onExpanderClick={handleExpanderClick}
         listCellWidth={isChecked ? "155px" : ""}
         columnWidth={columnWidth}
-        holidayColor="rgba(240, 240, 240, 0.5)"
         currentLineTaskId="Task 2"
-        currentLineColor="rgba(224, 242, 254, 0.8)"
+        holidayColor="rgba(250, 250, 250, 0.4)"
+        currentLineColor="#E0F2FE"
       />
       <h3>Gantt With Limited Height</h3>
       <Gantt
