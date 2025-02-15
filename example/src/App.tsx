@@ -68,7 +68,7 @@ const App = () => {
   };
 
   return (
-    <div className="Wrapper">
+    <div className="Wrapper" >
       <ViewSwitcher
         onViewModeChange={viewMode => setView(viewMode)}
         onViewListChange={setIsChecked}
@@ -88,7 +88,7 @@ const App = () => {
         listCellWidth={isChecked ? "155px" : ""}
         columnWidth={columnWidth}
         currentLineTaskId="Task 2"
-        holidayColor="rgba(250, 250, 250, 0.4)"
+        holidayColor="rgba(250, 250, 250, 0.8)"
         currentLineColor="#E0F2FE"
       />
       <h3>Gantt With Limited Height</h3>
