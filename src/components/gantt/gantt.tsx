@@ -56,6 +56,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   todayColor = "rgba(252, 248, 227, 1)",
   holidayColor = "transparent",
   nationalHolidays = [],
+  currentLineTaskId = "",
+  currentLineColor = "#f5f5f5",
   viewDate,
   viewTask,
   TooltipContent = StandardTooltipContent,
@@ -406,6 +408,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     todayColor,
     holidayColor,
     nationalHolidays,
+    currentLineTaskId,
+    currentLineColor,
     rtl,
   };
   const calendarProps: CalendarProps = {

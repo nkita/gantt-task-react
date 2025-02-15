@@ -117,6 +117,8 @@ npm start
 | todayColor                 | string | Specifies the current period column fill color.                                                |
 | holidayColor               | string | Specifies the holiday column fill color.                                                |
 | nationalHolidays           | string[] | Specifies the dates to be marked as national holidays. Dates should be in YYYY-MM-DD format (e.g. "2025-01-01"). |
+| currentLineColor           | string   | Specifies the current period column fill color.                                                |
+| currentLineTaskId          | string   | Specifies the task id to be marked as current period column.                                                |
 | TooltipContent             |        | Specifies the Tooltip view for selected taskbar.                                               |
 | TaskListHeader             |        | Specifies the task list Header view                                                            |
 | TaskListTable              |        | Specifies the task list Table view                                                             |

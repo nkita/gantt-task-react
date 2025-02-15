@@ -12,6 +12,8 @@ export type GridBodyProps = {
   todayColor: string;
   holidayColor: string;
   nationalHolidays: string[];
+  currentLineColor: string;
+  currentLineTaskId: string;
   rtl: boolean;
 };
 export const GridBody: React.FC<GridBodyProps> = ({
@@ -23,6 +25,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
   todayColor,
   holidayColor,
   nationalHolidays,
+  currentLineColor,
+  currentLineTaskId,
   rtl,
 }) => {
   let y = 0;
@@ -46,6 +50,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
         width={svgWidth}
         height={rowHeight}
         className={styles.gridRow}
+        style={task.id === currentLineTaskId ? { fill: currentLineColor } : {}}
       />
     );
     rowLines.push(
@@ -81,7 +86,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
     );
     if (dates[i + 1]) {
       const formattedDate = `${dates[i + 1].getFullYear()}-${(dates[i + 1].getMonth() + 1).toString().padStart(2, '0')}-${dates[i + 1].getDate().toString().padStart(2, '0')}`;
-      
+
       if (
         holidayColor !== "transparent" &&
         ([0, 6].includes(dates[i + 1].getDay()) ||

@@ -115,6 +115,8 @@ export interface StylingOption {
   todayColor?: string;
   holidayColor?: string;
   nationalHolidays?: string[];
+  currentLineColor?: string;
+  currentLineTaskId?: string;
   TooltipContent?: React.FC<{
     task: Task;
     fontSize: string;
