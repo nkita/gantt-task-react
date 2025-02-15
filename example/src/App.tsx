@@ -89,7 +89,7 @@ const App = () => {
         columnWidth={columnWidth}
         holidayColor="rgba(240, 240, 240, 0.5)"
         currentLineTaskId="Task 2"
-        currentLineColor="#f5f5f5"
+        currentLineColor="rgba(224, 242, 254, 0.8)"
       />
       <h3>Gantt With Limited Height</h3>
       <Gantt
