@@ -1,6 +1,6 @@
 {
   "name": "@nkita/gantt-task-react",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Interactive Gantt Chart for React with TypeScript. This repository is based on MaTeMaTuK/gantt-task-react.",
   "author": "nkita <nkitam7@gmail.com>",
   "homepage": "https://github.com/nkita/gantt-task-react",
