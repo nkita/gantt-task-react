@@ -115,6 +115,7 @@ npm start
 | arrowColor                 | string | Specifies the relationship arrow fill color.                                                   |
 | arrowIndent                | number | Specifies the relationship arrow right indent. Sets in px                                      |
 | todayColor                 | string | Specifies the current period column fill color.                                                |
+| todayBorderColor           | string | Specifies the border color of today's column.                                                 |
 | holidayColor               | string | Specifies the holiday column fill color.                                                |
 | nationalHolidays           | string[] | Specifies the dates to be marked as national holidays. Dates should be in YYYY-MM-DD format (e.g. "2025-01-01"). |
 | currentLineColor           | string   | Specifies the current period column fill color.                                                |

@@ -114,6 +114,7 @@ export interface StylingOption {
   arrowColor?: string;
   arrowIndent?: number;
   todayColor?: string;
+  todayBorderColor?: string;
   holidayColor?: string;
   nationalHolidays?: string[];
   currentLineColor?: string;

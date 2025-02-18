@@ -10,6 +10,7 @@ export type GridBodyProps = {
   rowHeight: number;
   columnWidth: number;
   todayColor: string;
+  todayBorderColor: string;
   holidayColor: string;
   nationalHolidays: string[];
   currentLineColor: string;
@@ -23,6 +24,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   svgWidth,
   columnWidth,
   todayColor,
+  todayBorderColor,
   holidayColor,
   nationalHolidays,
   currentLineColor,
@@ -128,6 +130,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
           width={columnWidth}
           height={y}
           fill={todayColor}
+          stroke={todayBorderColor}
+          strokeWidth="1"
         />
       );
     }
@@ -145,6 +149,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
           width={columnWidth}
           height={y}
           fill={todayColor}
+          stroke={todayBorderColor}
+          strokeWidth="1"
         />
       );
     }

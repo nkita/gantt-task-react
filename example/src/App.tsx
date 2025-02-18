@@ -86,6 +86,7 @@ const App = () => {
         onSelect={handleSelect}
         onExpanderClick={handleExpanderClick}
         listCellWidth={isChecked ? "155px" : ""}
+        locale="ja-JP"
         columnWidth={columnWidth}
         currentLineTaskId="Task 2"
         holidayColor="rgba(250, 250, 250, 0.8)"

@@ -121,13 +121,18 @@ export const StandardTooltipContent: React.FC<{
     fontSize,
     fontFamily,
   };
+
+  const getJapaneseDayOfWeek = (date: Date) => {
+    const days = ['日', '月', '火', '水', '木', '金', '土'];
+    return days[date.getDay()];
+  };
+
   return (
     <div className={styles.tooltipDefaultContainer} style={style}>
-      <b style={{ fontSize: fontSize + 6 }}>{`${task.start.getFullYear()}年${
-        task.start.getMonth() + 1
-      }月${task.start.getDate()}日 - ${task.end.getFullYear()}年${
+      {`${task.start.getFullYear()}年${task.start.getMonth() + 1
+      }月${task.start.getDate()}日 (${getJapaneseDayOfWeek(task.start)}) - ${task.end.getFullYear()}年${
         task.end.getMonth() + 1
-      }月${task.end.getDate()}日`}</b>
+      }月${task.end.getDate()}日 (${getJapaneseDayOfWeek(task.end)})`}
       {task.end.getTime() - task.start.getTime() !== 0 && (
         <p className={styles.tooltipDefaultContainerParagraph}>{`日数: ${~~(
           (task.end.getTime() - task.start.getTime()) /
