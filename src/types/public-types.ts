@@ -149,3 +149,8 @@ export interface StylingOption {
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
 }
+
+export interface GanttRef {
+  setScrollY: (value: number) => void;
+  getScrollY: () => number;
+}

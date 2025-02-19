@@ -1,11 +1,27 @@
-import React from "react";
-import { Task, ViewMode, Gantt } from "gantt-task-react";
+import React, { useRef } from "react";
+import { Task, ViewMode, Gantt, GanttRef } from "gantt-task-react";
 import { ViewSwitcher } from "./components/view-switcher";
 import { getStartEndDateForProject, initTasks } from "./helper";
 import "gantt-task-react/dist/index.css";
 
 // Init
 const App = () => {
+  const ganttRef = useRef<GanttRef>(null);
+
+  const handleScrollUp = () => {
+    if (ganttRef.current) {
+      const currentY = ganttRef.current.getScrollY();
+      ganttRef.current.setScrollY(currentY - 20);
+    }
+  };
+
+  const handleScrollDown = () => {
+    if (ganttRef.current) {
+      const currentY = ganttRef.current.getScrollY();
+      ganttRef.current.setScrollY(currentY + 20);
+    }
+  };
+
   const [view, setView] = React.useState<ViewMode>(ViewMode.Day);
   const [tasks, setTasks] = React.useState<Task[]>(initTasks());
   const [isChecked, setIsChecked] = React.useState(true);
@@ -68,45 +84,54 @@ const App = () => {
   };
 
   return (
-    <div className="Wrapper" >
+    <div className="Wrapper">
       <ViewSwitcher
         onViewModeChange={viewMode => setView(viewMode)}
         onViewListChange={setIsChecked}
         isChecked={isChecked}
       />
-      <h3>Gantt With Unlimited Height</h3>
-      <Gantt
-        tasks={tasks}
-        viewMode={view}
-        onDateChange={handleTaskChange}
-        onDelete={handleTaskDelete}
-        onProgressChange={handleProgressChange}
-        onDoubleClick={handleDblClick}
-        onClick={handleClick}
-        onSelect={handleSelect}
-        onExpanderClick={handleExpanderClick}
-        listCellWidth={isChecked ? "155px" : ""}
-        locale="ja-JP"
-        columnWidth={columnWidth}
-        currentLineTaskId="Task 2"
-        holidayColor="rgba(250, 250, 250, 0.8)"
-        currentLineColor="#E0F2FE"
-      />
+      <div style={{ position: 'relative' }}>
+        <h3>Gantt With Unlimited Height</h3>
+        <Gantt
+          tasks={tasks}
+          viewMode={view}
+          onDateChange={handleTaskChange}
+          onDelete={handleTaskDelete}
+          onProgressChange={handleProgressChange}
+          onDoubleClick={handleDblClick}
+          onClick={handleClick}
+          onSelect={handleSelect}
+          onExpanderClick={handleExpanderClick}
+          listCellWidth={isChecked ? "155px" : ""}
+          locale="ja-JP"
+          columnWidth={columnWidth}
+          currentLineTaskId="Task 2"
+          holidayColor="rgba(250, 250, 250, 0.8)"
+          currentLineColor="#E0F2FE"
+        />
+      </div>
       <h3>Gantt With Limited Height</h3>
-      <Gantt
-        tasks={tasks}
-        viewMode={view}
-        onDateChange={handleTaskChange}
-        onDelete={handleTaskDelete}
-        onProgressChange={handleProgressChange}
-        onDoubleClick={handleDblClick}
-        onClick={handleClick}
-        onSelect={handleSelect}
-        onExpanderClick={handleExpanderClick}
-        listCellWidth={isChecked ? "155px" : ""}
-        ganttHeight={300}
-        columnWidth={columnWidth}
-      />
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', right: '20px', bottom: '10%', zIndex: 1000, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <button onClick={handleScrollUp} style={{ border: 'none', padding: '10px', borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', cursor: 'pointer', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>↑</button>
+          <button onClick={handleScrollDown} style={{ border: 'none', padding: '10px', borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', cursor: 'pointer', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>↓</button>
+        </div>
+        <Gantt
+          ref={ganttRef}
+          tasks={tasks}
+          viewMode={view}
+          onDateChange={handleTaskChange}
+          onDelete={handleTaskDelete}
+          onProgressChange={handleProgressChange}
+          onDoubleClick={handleDblClick}
+          onClick={handleClick}
+          onSelect={handleSelect}
+          onExpanderClick={handleExpanderClick}
+          listCellWidth={isChecked ? "155px" : ""}
+          ganttHeight={300}
+          columnWidth={columnWidth}
+        />
+      </div>
     </div>
   );
 };

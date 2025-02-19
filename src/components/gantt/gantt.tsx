@@ -4,8 +4,10 @@ import React, {
   useRef,
   useEffect,
   useMemo,
+  useImperativeHandle,
+  forwardRef,
 } from "react";
-import { ViewMode, GanttProps, Task } from "../../types/public-types";
+import { ViewMode, GanttProps, Task, GanttRef } from "../../types/public-types";
 import { GridProps } from "../grid/grid";
 import { ganttDateRange, seedDates } from "../../helpers/date-helper";
 import { CalendarProps } from "../calendar/calendar";
@@ -24,7 +26,8 @@ import { HorizontalScroll } from "../other/horizontal-scroll";
 import { removeHiddenTasks, sortTasks } from "../../helpers/other-helper";
 import styles from "./gantt.module.css";
 
-export const Gantt: React.FunctionComponent<GanttProps> = ({
+// コンポーネントをforwardRefで包み、型定義を更新
+export const Gantt = forwardRef<GanttRef, GanttProps>(({
   tasks,
   headerHeight = 50,
   columnWidth = 60,
@@ -72,7 +75,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   onDelete,
   onSelect,
   onExpanderClick,
-}) => {
+}, ref) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
   const [dateSetup, setDateSetup] = useState<DateSetup>(() => {
@@ -468,14 +471,29 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     TaskListHeader,
     TaskListTable,
   };
+
+  // refを通じて外部に公開するメソッドを定義
+  useImperativeHandle(ref, () => ({
+    setScrollY: (value: number) => {
+      let newScrollY = value;
+      if (newScrollY < 0) {
+        newScrollY = 0;
+      } else if (newScrollY > ganttFullHeight - ganttHeight) {
+        newScrollY = ganttFullHeight - ganttHeight;
+      }
+      setScrollY(newScrollY);
+    },
+    getScrollY: () => scrollY
+  }));
+
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <div
         className={styles.wrapper}
         // onKeyDown={handleKeyDown}
         tabIndex={0}
         ref={wrapperRef}
-        style={{background:ganttBackgroundColor}}
+        style={{ background: ganttBackgroundColor, position: "relative" }}
       >
         {listCellWidth && <TaskList {...tableProps} />}
         <TaskGantt
@@ -522,4 +540,4 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
       />
     </div>
   );
-};
+});
