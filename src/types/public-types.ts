@@ -71,6 +71,10 @@ export interface EventOption {
    * Invokes on expander on task list
    */
   onExpanderClick?: (task: Task) => void;
+  /**
+   * Invokes on scroll change.
+   */
+  onScrollChange?: (scrollY: number) => void;
 }
 
 export interface DisplayOption {

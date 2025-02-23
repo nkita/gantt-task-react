@@ -75,6 +75,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
   onDelete,
   onSelect,
   onExpanderClick,
+  onScrollChange,
 }, ref) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
@@ -293,6 +294,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
         }
         if (newScrollY !== scrollY) {
           setScrollY(newScrollY);
+          onScrollChange?.(newScrollY);
           event.preventDefault();
         }
       }
@@ -315,11 +317,17 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
     svgWidth,
     rtl,
     ganttFullHeight,
+    onScrollChange,
   ]);
+
+  const setScrollYWithCallback = (value: number) => {
+    setScrollY(value);
+    onScrollChange?.(value);
+  };
 
   const handleScrollY = (event: SyntheticEvent<HTMLDivElement>) => {
     if (scrollY !== event.currentTarget.scrollTop && !ignoreScrollEvent) {
-      setScrollY(event.currentTarget.scrollTop);
+      setScrollYWithCallback(event.currentTarget.scrollTop);
       setIgnoreScrollEvent(true);
     } else {
       setIgnoreScrollEvent(false);
@@ -481,9 +489,10 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
       } else if (newScrollY > ganttFullHeight - ganttHeight) {
         newScrollY = ganttFullHeight - ganttHeight;
       }
-      setScrollY(newScrollY);
+      setScrollYWithCallback(newScrollY);
     },
     getScrollY: () => scrollY
+
   }));
 
   return (
