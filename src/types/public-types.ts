@@ -123,6 +123,7 @@ export interface StylingOption {
   nationalHolidays?: string[];
   currentLineColor?: string;
   currentLineTaskId?: string;
+  taskListWidth?: number | string;
   TooltipContent?: React.FC<{
     task: Task;
     fontSize: string;

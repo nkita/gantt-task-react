@@ -17,6 +17,7 @@ export type TaskListProps = {
   selectedTask: BarTask | undefined;
   setSelectedTask: (task: string) => void;
   onExpanderClick: (task: Task) => void;
+  taskListWidth?: number | string;
   TaskListHeader: React.FC<{
     headerHeight: number;
     rowWidth: string;
@@ -53,6 +54,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   horizontalContainerClass,
   TaskListHeader,
   TaskListTable,
+  taskListWidth,
 }) => {
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -81,7 +83,11 @@ export const TaskList: React.FC<TaskListProps> = ({
   };
 
   return (
-    <div ref={taskListRef} className="taskListLeftArea">
+    <div 
+      ref={taskListRef} 
+      className="taskListLeftArea"
+      style={{ width: taskListWidth || 'auto' }}
+    >
       <TaskListHeader {...headerProps} />
       <div
         ref={horizontalContainerRef}

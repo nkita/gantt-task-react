@@ -76,6 +76,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
   onSelect,
   onExpanderClick,
   onScrollChange,
+  taskListWidth,
 }, ref) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
@@ -87,7 +88,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
     undefined
   );
 
-  const [taskListWidth, setTaskListWidth] = useState(0);
+  const [taskListWidthState, setTaskListWidthState] = useState(0);
   const [svgContainerWidth, setSvgContainerWidth] = useState(0);
   const [svgContainerHeight, setSvgContainerHeight] = useState(ganttHeight);
   const [barTasks, setBarTasks] = useState<BarTask[]>([]);
@@ -250,19 +251,25 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
   }, [failedTask, barTasks]);
 
   useEffect(() => {
-    if (!listCellWidth) {
-      setTaskListWidth(0);
+    if (taskListWidth) {
+      if (typeof taskListWidth === 'number') {
+        setTaskListWidthState(taskListWidth);
+      } else if (typeof taskListWidth === 'string') {
+        const numericWidth = parseInt(taskListWidth, 10);
+        if (!isNaN(numericWidth)) {
+          setTaskListWidthState(numericWidth);
+        }
+      }
+    } else if (taskListRef.current) {
+      setTaskListWidthState(taskListRef.current.offsetWidth);
     }
-    if (taskListRef.current) {
-      setTaskListWidth(taskListRef.current.offsetWidth);
-    }
-  }, [taskListRef, listCellWidth]);
+  }, [taskListWidth, taskListRef]);
 
   useEffect(() => {
     if (wrapperRef.current) {
-      setSvgContainerWidth(wrapperRef.current.offsetWidth - taskListWidth);
+      setSvgContainerWidth(wrapperRef.current.offsetWidth - taskListWidthState);
     }
-  }, [wrapperRef, taskListWidth]);
+  }, [wrapperRef, taskListWidthState]);
 
   useEffect(() => {
     if (ganttHeight) {
@@ -478,6 +485,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
     onExpanderClick: handleExpanderClick,
     TaskListHeader,
     TaskListTable,
+    taskListWidth: taskListWidthState,
   };
 
   // refを通じて外部に公開するメソッドを定義
@@ -525,7 +533,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
             scrollY={scrollY}
             task={ganttEvent.changedTask}
             headerHeight={headerHeight}
-            taskListWidth={taskListWidth}
+            taskListWidth={taskListWidthState}
             TooltipContent={TooltipContent}
             rtl={rtl}
             svgWidth={svgWidth}
@@ -542,7 +550,7 @@ export const Gantt = forwardRef<GanttRef, GanttProps>(({
       </div>
       <HorizontalScroll
         svgWidth={svgWidth}
-        taskListWidth={taskListWidth}
+        taskListWidth={taskListWidthState}
         scroll={scrollX}
         rtl={rtl}
         onScroll={handleScrollX}

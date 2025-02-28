@@ -61,6 +61,9 @@ export function initTasks() {
       type: "task",
       project: "ProjectSample",
       displayOrder: 5,
+      styles: {
+        backgroundColor: "rgba(255, 0, 0, 0.5)",
+      },
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
